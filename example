@@ -1,0 +1,22 @@
+library(devtools)
+#remove.packages('deSCA', lib = NULL)
+install_github("XabierCS/deSCA")
+
+library(deSCA)
+ls("package:deSCA")
+
+sample1 <- simulMales(30000,0,0,0.06,0.06,0.4,0.4)
+dataFrame2<-sample1[,c(1,2)]
+plot(dataFrame2,pch=20)
+print(head(sample1))
+print(table(sample1$kariotype))
+
+dataFrame2<-sample1[,c(1,2)]
+f1 <- optimizeClusterMales(dataFrame2 ,interClusProb = 0.8)
+head(f1[[2]][c(1:5)]) # Print cluster output
+plotMaleClusters(dataFrame2,f1)
+table(f1[[2]]$clusKario2)
+
+sample1<-ReadSample(RawFile = 'example.txt.gz', skip = 10)
+PlotXandYChr(sample1, Name=paste0('/path/to/save/','test'),Save=FALSE)
+
